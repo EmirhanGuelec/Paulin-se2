@@ -1,0 +1,33 @@
+body {
+            
+    margin: 20px;
+background-color: powderblue;
+text-align: center;
+        }
+   button {
+
+    margin: auto ;
+    display: block;
+        }
+.ml{
+margin: auto ;
+display: block;
+
+
+}
+
+.fl{
+float:left;
+text-align: center;
+}
+.rahmen{
+background-color:#F2F5A9;
+margin:auto;
+padding:16px;
+height: 300px;
+width: 350px;
+border-radius:2%;
+border: 3px solid black;
+
+
+}
