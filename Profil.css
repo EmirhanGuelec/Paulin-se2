@@ -1,33 +1,141 @@
 body {
             
-    margin: 20px;
-background-color: powderblue;
-text-align: center;
-        }
-   button {
+    
+background-color: #A1D6E2;
 
-    margin: auto ;
-    display: block;
-        }
-.ml{
-margin: auto ;
-display: block;
-
-
+  }
+  h2 {text-align: center;
 }
 
-.fl{
-float:left;
-text-align: center;
+.header {
+    overflow: hidden;
+    background-color: #BCBABE;
+    padding: 20px 10px;
 }
-.rahmen{
-background-color:#F2F5A9;
+
+.header a {
+        float: left;
+        color: black;
+        text-align: center;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        line-height: 25px;
+        border-radius: 4px;
+      }
+  
+  .header a.logo {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  
+  /* Was beim hovern passiert */
+  .header a:hover {
+    background-color: #F1F1F2;
+    color: black;
+  }
+  
+  /* aktive links*/
+  .header a.active {
+    background-color: #A1D6E2;
+    color: white;
+  }
+  
+  /* rechts halten */
+  .header-right {
+    float: right;
+  }
+  
+  /* profilknopf */
+  .profil {
+	height: 50px ;
+	width: 50px ;
+	border-style: solid ;
+	border-width: 2px ;
+	border-radius: 100% ;
+	display : inline-block ;
+}
+  
+  /* Smartphone version */
+  @media screen and (max-width: 500px) {
+    .header a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+    .header-right {
+      float: none;
+    }
+
+    .profilfeld {
+        background-color:#1995AD;
+        margin:auto;
+        padding:16px;
+        height: 5px;
+        width: 5px;
+        border-radius:2%;
+        border: 3px dotted red;
+        text-align: left;
+        
+        }
+        .beitragsfeld {
+            background-color:#1995AD;
+            margin:auto;
+            padding:16px;
+            height: 300px;
+            width: 500px;
+            border-radius:2%;
+            border: 3px solid black;
+            
+            
+            }
+        
+        .profilbild {
+            width: 200px;        
+            height: 200px;
+            border-radius: 50%; 
+          }
+
+
+
+
+  }
+
+
+
+   
+
+.profilfeld {
+background-color:#1995AD;
 margin:auto;
 padding:16px;
-height: 300px;
-width: 350px;
+height: 600px;
+width: 1000px;
 border-radius:2%;
 border: 3px solid black;
+text-align: center;
 
+}
+.beitragsfeld {
+    background-color:#1995AD;
+    margin:auto;
+    padding:16px;
+    height: 600px;
+    width: 1000px;
+    border-radius:2%;
+    border: 3px solid black;
+    
+    
+    }
 
+.profilbild {
+    width: 200px;        
+    height: 200px;
+    border-radius: 50%; 
+  }
+
+  .profilinfos{background-color:#BCBABE; 
+    
+}
+.speicherbutton{text-align: right;
 }
