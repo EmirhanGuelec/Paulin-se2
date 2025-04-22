@@ -1,0 +1,9 @@
+/*Style for the input container*/
+.input {
+    background-color: whitesmoke ; 
+    border: 2px solid black ; 
+    height:50px ; 
+    width: 66%; 
+    float: left ; 
+    position: relative ;
+}
