@@ -1,9 +1,12 @@
+{% load static %}
 <html>
 	<head>
 			<title>AVIE</title>
 			<media="screen and (max-width:700px)>
-		    <link rel="stylesheet" type="text/css" href="header.css">
-			<link rel="stylesheet" type="text/css" href="input.css">
+
+			
+		    <link rel="stylesheet" type="text/css" href="{% static 'polls/header.css' %}">
+			<link rel="stylesheet" type="text/css" href="{% static 'polls/input.css' %}">
 			<link rel="stylesheet" type="text/css" href="freunde.css">
 	</head>
 		<body class="body">
