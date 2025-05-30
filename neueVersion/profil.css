@@ -1,0 +1,40 @@
+.profilfeld,
+.beitragsfeld {
+  background-color: #1995AD;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 1000px;
+  border-radius: 8px;
+  border: 3px solid black;
+}
+
+.profilbild {
+  display: block;
+  margin: 0 auto 20px auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profilinfos {
+  background-color: #BCBABE;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.profilinfos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profilrechts {
+  text-align: right;
+  margin-top: 10px;
+}

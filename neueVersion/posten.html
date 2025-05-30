@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AVIE - Neuen Beitrag erstellen</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="posten.css">
+  <link rel="stylesheet" href="handy.css">
+  <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <a href="webapp.html" class="logo">AVIE</a>
+
+  <nav class="nav-icons">
+    <a href="suche.html" class="icon-link" title="Suche">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
+    <a href="chat.html" class="icon-link" title="Chats">
+      <i class="fa-solid fa-comments"></i>
+    </a>
+    <a href="profil.html" class="icon-link profil-icon" title="Profil">
+      <i class="fa-solid fa-user"></i>
+    </a>
+  </nav>
+</header>
+
+<div class="floating-footer">
+  <a href="login.html" title="Login">
+    <i class="fa-solid fa-right-to-bracket"></i>
+  </a>
+  <a href="einstellungen.html" title="Einstellungen">
+    <i class="fa-solid fa-gear"></i>
+  </a>
+  <a href="impressum.html" title="Impressum">
+    <i class="fa-solid fa-circle-info"></i>
+  </a>
+</div>
+
+<div class="floating-footer">
+  <a href="posten.html" class="floating-footer-left bottom-icon active" title="Beitrag erstellen">
+    <i class="fa-solid fa-plus"></i>
+  </a>
+</div>
+
+  <main>
+    <h2>Neuen Beitrag erstellen</h2>
+    <section class="post-erstellen-container">
+      <form class="post-form">
+
+        <label for="post-titel">Titel:</label>
+        <input type="text" id="post-titel" name="post-titel" required />
+
+        <label for="post-inhalt">Inhalt:</label>
+        <textarea id="post-inhalt" name="post-inhalt" rows="6" required></textarea>
+
+        <label for="post-bild">Bild hochladen (optional):</label>
+        <input type="file" id="post-bild" name="post-bild" accept="image/*" />
+
+        <button type="submit">Beitrag veröffentlichen</button>
+      </form>
+    </section>
+  </main>
+
+</body>
+
+</html>

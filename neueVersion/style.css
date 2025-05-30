@@ -1,0 +1,157 @@
+/*Layout*/
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #A1D6E2;
+  color: #333;
+}
+
+
+/*Header*/
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #BCBABE;
+  padding: 15px 20px;
+}
+
+
+/*Logo*/
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s;
+}
+
+.logo:hover {
+  color: #1995AD;
+}
+
+
+/*Icons*/
+.nav-icons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.icon-link {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  border-radius: 50%;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.icon-link:hover {
+  background-color: #F1F1F2;
+  color: #1995AD;
+}
+
+.icon-link.active {
+  background-color: #A1D6E2;
+  color: white;
+  font-weight: bold;
+}
+
+
+/* Profil-Icon-Stil */
+.profil-icon {
+  background-color: #1995AD;
+  color: white;
+}
+
+
+/*Main Content*/
+main {
+  max-width: 900px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+/*Eingabefelder*/
+input[type="text"],
+textarea {
+  background-color: whitesmoke;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+
+/*Buttons*/
+button {
+  background-color: #A1D6E2;
+  color: black;
+  padding: 10px 20px;
+  border: 2px solid black;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1995AD;
+  color: white;
+}
+
+
+/*Floating Footer*/
+.floating-footer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.floating-footer-left {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.floating-footer a {
+  background-color: #BCBABE;
+  color: black;
+  padding: 12px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 18px;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.floating-footer a:hover {
+  background-color: #A1D6E2;
+  color: white;
+}
+
+.bottom-icon.active {
+  background-color: #A1D6E2;
+  color: white;
+  font-weight: bold;
+}

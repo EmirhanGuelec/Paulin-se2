@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AVIE - Registrieren</title>
+  <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="Registrierung.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="handy.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <a href="webapp.html" class="logo">AVIE</a>
+  
+  <nav class="nav-icons">
+    <a href="suche.html" class="icon-link" title="Suche">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
+    <a href="chat.html" class="icon-link" title="Chats">
+      <i class="fa-solid fa-comments"></i>
+    </a>
+    <a href="profil.html" class="icon-link profil-icon" title="Profil">
+      <i class="fa-solid fa-user"></i>
+    </a>
+  </nav>
+</header>
+
+<div class="floating-footer">
+  <a href="login.html" class="bottom-icon active" title="Login">
+    <i class="fa-solid fa-right-to-bracket"></i>
+  </a>
+  <a href="einstellungen.html" title="Einstellungen">
+    <i class="fa-solid fa-gear"></i>
+  </a>
+  <a href="impressum.html" title="Impressum">
+    <i class="fa-solid fa-circle-info"></i>
+  </a>
+</div>
+
+
+  <main class="register-container">
+    <h2>Registrieren</h2>
+    <form class="register-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="username">Benutzername:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="email">E-Mail-Adresse:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Passwort:</label>
+      <input type="password" id="password" name="password" required>
+
+      <label for="confirm-password">Passwort bestätigen:</label>
+      <input type="password" id="confirm-password" name="confirm-password" required>
+
+      <button type="submit">Registrieren</button>
+
+      <p class="login-link">Schon ein Konto? <a href="login.html">Zum Login</a></p>
+    </form>
+  </main>
+
+</body>
+
+</html>
