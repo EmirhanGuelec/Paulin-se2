@@ -1,0 +1,92 @@
+@media screen and (max-width: 600px) {
+    
+    .logo {
+        font-size: 24px;
+    }
+
+
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-right {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-top: 10px;
+    }
+
+    
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .login-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .register-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .settings-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .chat-container {
+        flex-direction: column;
+    }
+
+
+    .nav-icons {
+        width: 100%;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        justify-content: flex-start;
+    }
+
+    .icon-link {
+        flex-grow: 1;
+        text-align: center;
+        margin: 5px 10px;
+    }
+
+
+    .profilfeld,
+    .beitragsfeld {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .profilbild {
+        width: 150px;
+        height: 150px;
+    }
+
+
+    .beitrag-card p {
+        font-size: 12px;
+    }
+
+
+    .chat-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #BCBABE;
+    }
+
+    .chat-main {
+        height: 100%;
+    }
+
+}

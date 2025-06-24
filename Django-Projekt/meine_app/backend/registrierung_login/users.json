@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Testuser",
+    "username": "Testuser1",
+    "email": "test@test.de",
+    "password": "37"
+  },
+  {
+    "name": "Testuser",
+    "username": "Testuser2",
+    "email": "test2@test.de",
+    "password": "38"
+  },
+  {
+    "name": "123",
+    "username": "123",
+    "email": "123@123",
+    "password": "123"
+  },
+  {
+    "name": "Testuser",
+    "username": "Testuser3",
+    "email": "test3@test.de",
+    "password": "37"
+  },
+  {
+    "name": null,
+    "username": null,
+    "email": null,
+    "password": null
+  },
+  {
+    "name": "Testuser",
+    "username": "Testuser4",
+    "email": "test4@test.de",
+    "password": "37"
+  },
+  {
+    "name": "Test15",
+    "username": "Tester",
+    "email": "test@test.com",
+    "password": "test"
+  }
+]

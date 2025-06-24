@@ -1,0 +1,70 @@
+.header-right {
+  float: right;
+}
+
+.header-right a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.settings-container {
+  background-color: #1995AD;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  border: 3px solid black;
+  border-radius: 10px;
+  color: black;
+}
+
+.settings-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.settings-form fieldset {
+  border: 2px solid #BCBABE;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.settings-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.settings-form input,
+.settings-form select {
+  width: 100%;
+  padding: 10px;
+  background-color: #BCBABE;
+  border: 1px solid black;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 10px;
+  background-color: #A1D6E2;
+  border: 2px solid black;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #F1F1F2;
+}
+
+button.danger {
+  background-color: #ff4d4d;
+  color: white;
+}

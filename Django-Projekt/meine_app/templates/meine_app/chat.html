@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AVIE – Chat</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+  <link rel="stylesheet" href="{% static 'css/handy.css' %}">
+  <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <a href="/startseite?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
+  
+  <nav class="nav-icons">
+    <a href="/suche?username={{ username }}&password={{ password }}" class="icon-link" title="Suche">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
+    <a href="/chat?username={{ username }}&password={{ password }}" class="icon-link active" title="Chats">
+      <i class="fa-solid fa-comments"></i>
+    </a>
+    <a href="/profilseite?username={{ username }}&password={{ password }}" class="icon-link profil-icon" title="Profil">
+      <i class="fa-solid fa-user"></i>
+    </a>
+  </nav>
+</header>
+
+<div class="floating-footer">
+  <a href="/login" title="Logout">
+    <i class="fa-solid fa-right-to-bracket"></i>
+  </a>
+  <a href="/einstellungen?username={{ username }}&password={{ password }}" title="Einstellungen">
+    <i class="fa-solid fa-gear"></i>
+  </a>
+  <a href="/impressum?username={{ username }}&password={{ password }}" title="Impressum">
+    <i class="fa-solid fa-circle-info"></i>
+  </a>
+</div>
+
+  <div class="chat-container">
+    
+    <aside class="chat-sidebar">
+      <h3>Deine Chats</h3>
+      <ul class="chat-list">
+        <li class="chat-user active"><img src="profilbild.jpg" class="avatar"><span>@benutzername</span>
+        </li>
+        <li class="chat-user"><img src="profilbild.jpg" class="avatar"><span>@benutzername</span>
+        </li>
+        <li class="chat-user"><img src="profilbild.jpg" class="avatar"><span>@benutzername</span>
+        </li>
+      </ul>
+    </aside>
+
+    
+    <main class="chat-main">
+      <div class="chat-messages">
+        <div class="message received">Hi! Wie geht's dir?</div>
+        <div class="message sent">Gut, danke! Und dir?</div>
+      </div>
+      <form class="chat-input">
+        <input type="text" placeholder="Nachricht eingeben..." />
+        <button type="submit">Senden</button>
+      </form>
+    </main>
+
+  </div>
+
+</body>
+
+</html>

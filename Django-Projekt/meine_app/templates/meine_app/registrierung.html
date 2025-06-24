@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AVIE - Registrieren</title>
+  <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'css/registrierung.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/handy.css' %}">
+</head>
+
+<body>
+
+<header class="site-header">
+  <a href="/startseite" class="logo">AVIE</a>
+</header>
+
+<div class="floating-footer">
+  <a href="/impressum" title="Impressum">
+    <i class="fa-solid fa-circle-info"></i>
+  </a>
+</div>
+
+
+  <main class="register-container">
+    <h2>Registrieren</h2>
+    <form class="register-form" action="{% url 'register' %}" method="get">
+      {% csrf_token %}
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="username">Benutzername:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="email">E-Mail-Adresse:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Passwort:</label>
+      <input type="password" id="password" name="password" required>
+
+      <label for="confirm-password">Passwort bestätigen:</label>
+      <input type="password" id="confirm-password" name="confirm-password" required>
+
+      <button type="submit">Registrieren</button>
+
+      <p class="login-link">Schon ein Konto? <a href="/login">Zum Login</a></p>
+    </form>
+  </main>
+
+</body>
+
+</html>

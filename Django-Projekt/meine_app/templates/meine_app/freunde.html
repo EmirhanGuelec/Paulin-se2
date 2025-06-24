@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <title>AVIE - Freunde</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/freunde.css' %}">
+  <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  
+<header class="site-header">
+  <a href="/startseite?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
+  
+  <nav class="nav-icons">
+    <a href="/suche?username={{ username }}&password={{ password }}" class="icon-link" title="Suche">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
+    <a href="/chat?username={{ username }}&password={{ password }}" class="icon-link" title="Chats">
+      <i class="fa-solid fa-comments"></i>
+    </a>
+    <a href="/profilseite?username={{ username }}&password={{ password }}" class="icon-link profil-icon active" title="Profil">
+      <i class="fa-solid fa-user"></i>
+    </a>
+  </nav>
+</header>
+
+<div class="floating-footer">
+  <a href="/login" title="Logout">
+    <i class="fa-solid fa-right-to-bracket"></i>
+  </a>
+  <a href="/einstellungen?username={{ username }}&password={{ password }}" title="Einstellungen">
+    <i class="fa-solid fa-gear"></i>
+  </a>
+  <a href="/impressum?username={{ username }}&password={{ password }}" title="Impressum">
+    <i class="fa-solid fa-circle-info"></i>
+  </a>
+</div>
+
+  <main class="freunde-container">
+
+    <h2>Deine Freunde</h2>
+
+    <div class="freund">
+      <img src="https://via.placeholder.com/80" alt="Avatar" class="freund-avatar">
+      <div class="freund-info">
+        <p><strong>@beispieluser</strong></p>
+        <button>Nachricht senden</button>
+      </div>
+    </div>
+
+    <div class="freund">
+      <img src="https://via.placeholder.com/80" alt="Avatar" class="freund-avatar">
+      <div class="freund-info">
+        <p><strong>@freundin123</strong></p>
+        <button>Nachricht senden</button>
+      </div>
+    </div>
+    
+  </main>
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AVIE - Einstellungen</title>
+  <link rel="stylesheet" href="{% static 'css/einstellungen.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/handy.css' %}">
+  <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <a href="/startseite?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
+  
+  <nav class="nav-icons">
+    <a href="/suche?username={{ username }}&password={{ password }}" class="icon-link" title="Suche">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
+    <a href="/chat?username={{ username }}&password={{ password }}" class="icon-link" title="Chats">
+      <i class="fa-solid fa-comments"></i>
+    </a>
+    <a href="/profilseite?username={{ username }}&password={{ password }}" class="icon-link profil-icon" title="Profil">
+      <i class="fa-solid fa-user"></i>
+    </a>
+  </nav>
+</header>
+
+<div class="floating-footer">
+  <a href="/login" title="Logout">
+    <i class="fa-solid fa-right-to-bracket"></i>
+  </a>
+  <a href="/einstellungen?username={{ username }}&password={{ password }}" class="bottom-icon active" title="Einstellungen">
+    <i class="fa-solid fa-gear"></i>
+  </a>
+  <a href="/impressum?username={{ username }}&password={{ password }}" title="Impressum">
+    <i class="fa-solid fa-circle-info"></i>
+  </a>
+</div>
+
+  <main class="settings-container">
+    <h2>Einstellungen</h2>
+
+    <form class="settings-form">
+
+      <fieldset>
+        <legend>Account-Daten</legend>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+
+        <label for="username">Benutzername:</label>
+        <input type="text" id="username" name="username">
+
+        <label for="email">E-Mail:</label>
+        <input type="email" id="email" name="email">
+
+        <label for="password">Passwort ändern:</label>
+        <input type="password" id="password" name="password">
+      </fieldset>
+
+      <fieldset>
+        <legend>Account</legend>
+        <button type="button" class="danger">Konto löschen</button>
+      </fieldset>
+
+      <button type="submit">Änderungen speichern</button>
+    </form>
+  </main>
+
+</body>
+
+</html>

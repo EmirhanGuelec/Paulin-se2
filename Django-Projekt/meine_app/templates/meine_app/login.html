@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AVIE - Login</title>
+  <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="{% static 'css/handy.css' %}">
+</head>
+
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo">AVIE</a>
+</header>
+
+<div class="floating-footer">
+  </a>
+  <a href="/impressum" title="Impressum">
+    <i class="fa-solid fa-circle-info"></i>
+  </a>
+</div>
+
+<main class="login-container">
+  <h2>Login</h2>
+  <form class="login-form" method="get" action="{% url 'login_check' %}">
+    <label for="username">Benutzername:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Passwort:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Anmelden</button>
+
+    <p class="register-link">Noch kein Konto? <a href="/registrierung">Registrieren</a></p>
+  </form>
+</main>
+
+{% if fehler %}
+<script>
+  alert("Hoppla!\nBenutzername oder Passwort ist falsch!\nWenn Sie noch kein Konto bei uns haben, müssen Sie sich registrieren");
+</script>
+{% endif %}
+
+</body>
+</html>

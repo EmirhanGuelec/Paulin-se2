@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AVIE - Profil</title>
+  <link rel="stylesheet" href="profilseite.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="handy.css">
+  <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+
+<header class="site-header">
+  <a href="webapp.html" class="logo" title="Homepage">AVIE</a>
+
+  <nav class="nav-icons">
+
+    <a href="suche.html" class="icon-link" title="Suche">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
+    <a href="chat.html" class="icon-link" title="Chats">
+      <i class="fa-solid fa-comments"></i>
+    </a>
+    <a href="profilseite.html" class="icon-link profil-icon active" title="Profil">
+      <i class="fa-solid fa-user"></i>
+    </a>
+  </nav>
+</header>
+
+<div class="floating-footer">
+  <a href="/login" title="Logout">
+    <i class="fa-solid fa-right-to-bracket"></i>
+  </a>
+  <a href="einstellungen.html" title="Einstellungen">
+    <i class="fa-solid fa-gear"></i>
+  </a>
+  <a href="impressum.html" title="Impressum">
+    <i class="fa-solid fa-circle-info"></i>
+  </a>
+</div>
+
+<div class="floating-footer">
+  <a href="posten.html" class="floating-footer-left" title="Beitrag erstellen">
+    <i class="fa-solid fa-plus"></i>
+  </a>
+</div>
+
+  <main>
+    <h2>Profilseite von {{uname}}</h2>
+
+    <section class="profilfeld">
+      <img src="profilbild.jpg" class="profilbild">
+      
+      <div class="profilinfos-container">
+
+        <p><strong>Follower: 10 &nbsp;|&nbsp; Gefolgt: 10</strong> 
+        
+          <a href="freunde.html" class="icon-link" title="Meine Freunde">
+            <i class="fa-solid fa-user-group"></i>
+          </a>
+
+        </p>
+
+        <button id="folgenbutton">Folgen</button>
+
+          <script>
+            const btn = document.getElementById('folgenbutton');
+            let isFollowing = false;
+
+            btn.addEventListener('click', function() {
+              isFollowing = !isFollowing;
+              if (isFollowing) {
+                btn.textContent = 'Gefolgt';
+                btn.classList.add('following');
+              } else {
+                btn.textContent = 'Folgen';
+                btn.classList.remove('following');
+              }
+            });
+          </script>
+
+
+        <label for="Uname">Benutzername:</label>
+        <input class="profilinfos" type="text" id="Uname" name="Uname">
+
+        <label for="beschr">Profilbeschreibung:</label>
+        <textarea class="profilinfos" id="beschr" name="beschr" rows="5"></textarea>
+
+      </div>
+    </section>
+
+    <h2>Beiträge</h2>
+    <section class="beitragsfeld">
+      
+    </section>
+  </main>
+
+</body>
+
+</html>

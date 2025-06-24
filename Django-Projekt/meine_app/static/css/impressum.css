@@ -1,0 +1,17 @@
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #F1F1F2;
+  border-radius: 10px;
+  border: 2px solid #BCBABE;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
