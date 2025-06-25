@@ -260,12 +260,15 @@
         });
       });
 
-      // 2) Kommentar-Panel toggeln
+      // 2) Kommentar-Panel toggel
       document.querySelectorAll(".comment-toggle").forEach(btn => {
         btn.addEventListener("click", () => {
           const postEl = btn.closest(".post");
-          postEl.querySelector(".comments").style.display = "block";
-          postEl.querySelector(".comment-form").style.display = "block";
+          const comments = postEl.querySelector(".comments");
+          const form = postEl.querySelector(".comment-form");
+          const isVisible = comments.style.display === "block";
+          comments.style.display = isVisible ? "none" : "block";
+          form.style.display = isVisible ? "none" : "block";
         });
       });
 
