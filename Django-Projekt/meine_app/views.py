@@ -29,15 +29,25 @@ def startseite(request):
 
 @check_login
 def create_post(request):
+    username = request.GET.get("username")
+    password = request.GET.get("password")
+
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            username = request.GET.get("username", "Unbekannt")
             post.author = username
-
             post.save()
-    return redirect(f'/startseite?username={request.GET.get("username")}&password={request.GET.get("password")}')
+            return redirect(f'/startseite?username={username}&password={password}')
+    else:
+        form = PostForm()
+
+    return render(request, "meine_app/posten.html", {
+        'post_form': form,
+        'username': username,
+        'password': password,
+    })
+
 
 @check_login
 def add_comment(request, post_id):
