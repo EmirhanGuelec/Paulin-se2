@@ -44,3 +44,20 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['content']
 
+class ProfileForm(forms.Form):
+    avatar = forms.ImageField(
+        label="Profilbild",
+        required=False
+    )
+    bio = forms.CharField(
+        label="Biografie",
+        widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Erzähl etwas über dich…'}),
+        required=False
+    )
+    location = forms.CharField(
+        label="Ort",
+        max_length=100,
+        required=False
+    )
+
+
