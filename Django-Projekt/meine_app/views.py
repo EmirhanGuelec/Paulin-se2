@@ -1,37 +1,50 @@
-import os, json
-from meine_app.backend.registrierung_login import registrierung as mod_registrierung
-from meine_app.backend.registrierung_login import login as mod_login
-from meine_app.backend.registrierung_login.pruefung import check_login
+import os
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 from django.conf import settings
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .models import Post, Comment, Like
 from .forms import PostForm, CommentForm
-from django.contrib.auth.models import User
+from meine_app.backend.registrierung_login.pruefung import check_login
+from meine_app.backend.registrierung_login import registrierung as mod_registrierung
+from meine_app.backend.registrierung_login import login as mod_login
 
-USER_JSON_PATH = os.path.join(settings.BASE_DIR, 'meine_app', 'backend', 'registrierung_login', 'users.json')
+USER_JSON_PATH = os.path.join(
+    settings.BASE_DIR,
+    'meine_app',
+    'backend',
+    'registrierung_login',
+    'users.json'
+)
 
 @check_login
 def startseite(request):
+    username = request.GET.get("username")
+    password = request.GET.get("password")
     posts = Post.objects.all().order_by('-created_at')
     post_form = PostForm()
     comment_form = CommentForm()
-    username = request.GET.get("username")
-    password = request.GET.get("password")
+    liked_posts = list(
+        Like.objects.filter(username=username, post__in=posts)
+            .values_list('post_id', flat=True)
+    )
     return render(request, "meine_app/index.html", {
         'posts': posts,
         'post_form': post_form,
         'comment_form': comment_form,
-        "username": username,
-        "password": password
+        'username': username,
+        'password': password,
+        'liked_posts': liked_posts,
     })
 
 @check_login
 def create_post(request):
     username = request.GET.get("username")
     password = request.GET.get("password")
-
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -41,13 +54,11 @@ def create_post(request):
             return redirect(f'/startseite?username={username}&password={password}')
     else:
         form = PostForm()
-
     return render(request, "meine_app/posten.html", {
         'post_form': form,
         'username': username,
         'password': password,
     })
-
 
 @check_login
 def add_comment(request, post_id):
@@ -56,21 +67,40 @@ def add_comment(request, post_id):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.author = request.GET.get("username")  # <- statt request.user
+            comment.author = request.GET.get("username")
             comment.post = post
             comment.save()
     return redirect(f'/startseite?username={request.GET.get("username")}&password={request.GET.get("password")}')
 
 @check_login
-def toggle_like(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    username = request.GET.get("username")
-
-    like, created = Like.objects.get_or_create(post=post, username=username)
+def toggle_like_ajax(request):
+    if request.method != "POST" or request.headers.get("X-Requested-With") != "XMLHttpRequest":
+        return JsonResponse({"error": "Nur AJAX-POST erlaubt"}, status=400)
+    post = get_object_or_404(Post, id=request.POST.get("post_id"))
+    user = request.GET.get("username")
+    like, created = Like.objects.get_or_create(post=post, username=user)
     if not created:
         like.delete()
-    return redirect(f'/startseite?username={username}&password={request.GET.get("password")}')
+        liked = False
+    else:
+        liked = True
+    return JsonResponse({"liked": liked, "count": post.likes.count()})
 
+@check_login
+def add_comment_ajax(request):
+    if request.method != "POST" or request.headers.get("X-Requested-With") != "XMLHttpRequest":
+        return JsonResponse({"error": "Nur AJAX-POST erlaubt"}, status=400)
+    post = get_object_or_404(Post, id=request.POST.get("post_id"))
+    content = request.POST.get("content", "").strip()
+    if not content:
+        return JsonResponse({"error": "Kommentar darf nicht leer sein"}, status=400)
+    author = request.GET.get("username")
+    comment = Comment.objects.create(post=post, author=author, content=content)
+    return JsonResponse({
+        "author": author,
+        "content": comment.content,
+        "created_at": comment.created_at.strftime("%d.%m.%Y %H:%M")
+    })
 def register(request):
     return mod_registrierung.registrieren(request, USER_JSON_PATH)
 
