@@ -1,104 +1,169 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AVIE - Profil</title>
-  <link rel="stylesheet" href="profilseite.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="handy.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil von {{ profile_user }}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+  <style>
+    .footer-buttons {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      z-index: 1000;
+    }
+    .footer-buttons a {
+      background: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      color: #333;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .footer-buttons a:hover {
+      background: #f0f0f0;
+    }
+  </style>
 </head>
-
-
 <body>
 
-<header class="site-header">
-  <a href="webapp.html" class="logo" title="Homepage">AVIE</a>
+  <!-- HEADER wie auf der Startseite -->
+  <header class="site-header">
+    <a href="{% url 'startseite' %}?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
+    <nav class="nav-icons">
+      <a href="{% url 'suche' %}?username={{ username }}&password={{ password }}" class="icon-link">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <a href="{% url 'chat' %}?username={{ username }}&password={{ password }}" class="icon-link">
+        <i class="fa-solid fa-comment"></i>
+      </a>
+      <a href="{% url 'profilseite' %}?username={{ username }}&password={{ password }}&profil={{ username }}" class="icon-link profil-icon">
+        <i class="fa-solid fa-user"></i>
+      </a>
+    </nav>
+  </header>
 
-  <nav class="nav-icons">
+  <main class="feed-container">
+    <!-- Profil-Kopf -->
+    <section class="profile-header" style="text-align:center; margin:2rem 0;">
+      {% if avatar_url %}
+        <img
+          src="{{ avatar_url }}"
+          alt="Avatar von {{ profile_user }}"
+          style="
+            width:120px;
+            height:120px;
+            object-fit:cover;
+            border-radius:50%;
+            border:3px solid #1995AD;
+            display:block;
+            margin:0 auto 0.75rem;
+          "
+        >
+      {% endif %}
 
-    <a href="suche.html" class="icon-link" title="Suche">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </a>
-    <a href="chat.html" class="icon-link" title="Chats">
-      <i class="fa-solid fa-comments"></i>
-    </a>
-    <a href="profilseite.html" class="icon-link profil-icon active" title="Profil">
-      <i class="fa-solid fa-user"></i>
-    </a>
-  </nav>
-</header>
+      <h1
+        class="profile-title"
+        style="margin:0.5rem 0 0.25rem; font-size:1.75rem; color:#333;"
+      >
+        @{{ profile_user }}
+      </h1>
 
-<div class="floating-footer">
-  <a href="/login" title="Logout">
-    <i class="fa-solid fa-right-to-bracket"></i>
-  </a>
-  <a href="einstellungen.html" title="Einstellungen">
-    <i class="fa-solid fa-gear"></i>
-  </a>
-  <a href="impressum.html" title="Impressum">
-    <i class="fa-solid fa-circle-info"></i>
-  </a>
-</div>
-
-<div class="floating-footer">
-  <a href="posten.html" class="floating-footer-left" title="Beitrag erstellen">
-    <i class="fa-solid fa-plus"></i>
-  </a>
-</div>
-
-  <main>
-    <h2>Profilseite von {{uname}}</h2>
-
-    <section class="profilfeld">
-      <img src="profilbild.jpg" class="profilbild">
-      
-      <div class="profilinfos-container">
-
-        <p><strong>Follower: 10 &nbsp;|&nbsp; Gefolgt: 10</strong> 
-        
-          <a href="freunde.html" class="icon-link" title="Meine Freunde">
-            <i class="fa-solid fa-user-group"></i>
-          </a>
-
+      {% if bio %}
+        <p
+          class="profile-bio"
+          style="
+            font-size:1rem;
+            color:#555;
+            line-height:1.4;
+            margin:0.5rem auto;
+            max-width:500px;
+          "
+        >
+          {{ bio }}
         </p>
+      {% endif %}
 
-        <button id="folgenbutton">Folgen</button>
+      {% if location %}
+        <p
+          class="profile-location"
+          style="
+            display:inline-flex;
+            align-items:center;
+            gap:0.25rem;
+            font-size:0.9rem;
+            color:#777;
+            margin-bottom:1rem;
+          "
+        >
+          <i class="fa-solid fa-location-dot" style="color:#e63946;"></i>
+          {{ location }}
+        </p>
+      {% endif %}
 
-          <script>
-            const btn = document.getElementById('folgenbutton');
-            let isFollowing = false;
-
-            btn.addEventListener('click', function() {
-              isFollowing = !isFollowing;
-              if (isFollowing) {
-                btn.textContent = 'Gefolgt';
-                btn.classList.add('following');
-              } else {
-                btn.textContent = 'Folgen';
-                btn.classList.remove('following');
-              }
-            });
-          </script>
-
-
-        <label for="Uname">Benutzername:</label>
-        <input class="profilinfos" type="text" id="Uname" name="Uname">
-
-        <label for="beschr">Profilbeschreibung:</label>
-        <textarea class="profilinfos" id="beschr" name="beschr" rows="5"></textarea>
-
-      </div>
+      {% if profile_user == username %}
+        <a
+          href="{% url 'edit_profile' %}?username={{ username }}&password={{ password }}"
+          class="btn primary"
+          style="
+            display:inline-flex;
+            align-items:center;
+            gap:0.5rem;
+            margin-top:0.75rem;
+          "
+        >
+          <i class="fa-solid fa-pen-to-square"></i> Profil bearbeiten
+        </a>
+      {% endif %}
     </section>
 
-    <h2>Beiträge</h2>
-    <section class="beitragsfeld">
-      
-    </section>
+    <hr>
+
+    <!-- Beiträge des Nutzers -->
+    {% if posts %}
+      {% for post in posts %}
+        <div class="post">
+          <div class="post-header">
+            <span>– {{ post.created_at|date:"d.m.Y H:i" }}</span>
+          </div>
+
+          {% if post.image %}
+            <img src="{{ post.image.url }}" class="post-image" alt="Bild">
+          {% endif %}
+          {% if post.video %}
+            <video controls class="post-video">
+              <source src="{{ post.video.url }}" type="video/mp4">
+            </video>
+          {% endif %}
+
+          <p class="post-text">{{ post.content }}</p>
+        </div>
+        <hr>
+      {% endfor %}
+    {% else %}
+      <p class="no-posts">Dieser Benutzer hat noch keine Beiträge erstellt.</p>
+    {% endif %}
   </main>
 
-</body>
+ <div class="footer-buttons">
+  <a href="/login" title="Logout"><i class="fa-solid fa-right-to-bracket"></i></a>
+  <a href="/einstellungen?username={{ username }}&password={{ password }}" title="Einstellungen"><i class="fa-solid fa-gear"></i></a>
+  <a href="/impressum?username={{ username }}&password={{ password }}" title="Impressum"><i class="fa-solid fa-circle-info"></i></a>
+</div>
 
+
+
+
+
+</body>
 </html>
