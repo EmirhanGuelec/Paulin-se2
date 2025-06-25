@@ -8,10 +8,11 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Post, Comment, Like
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, ProfileForm
 from meine_app.backend.registrierung_login.pruefung import check_login
 from meine_app.backend.registrierung_login import registrierung as mod_registrierung
 from meine_app.backend.registrierung_login import login as mod_login
+from django.urls import reverse
 
 USER_JSON_PATH = os.path.join(
     settings.BASE_DIR,
@@ -114,12 +115,6 @@ def saveUploadedFile(request):
     return render(request, "meine_app/template.html")
 
 @check_login
-def profilseite(request):
-    username = request.GET.get("username")
-    password = request.GET.get("password")
-    return render(request, "meine_app/Profil.html", {"username": username, "password": password})
-
-@check_login
 def chat(request):
     username = request.GET.get("username")
     password = request.GET.get("password")
@@ -163,28 +158,111 @@ def registrierung(request):
 
 @check_login
 def suche(request):
-    username = request.GET.get("username")
-    password = request.GET.get("password")
-    query = request.GET.get('q')
-    users = []
+    username = request.GET.get("username", "")
+    password = request.GET.get("password", "")
+    query    = request.GET.get("q", "").strip()
+    users    = []
 
     if query:
-        users = User.objects.filter(username__icontains=query)
+        try:
+            with open(USER_JSON_PATH, 'r', encoding='utf-8') as f:
+                all_users = json.load(f)
+            for u in all_users:
+                uname = u.get('username') or ''
+                if query.lower() in uname.lower():
+                    users.append(u)
+        except FileNotFoundError:
+            print(f"users.json nicht gefunden unter {USER_JSON_PATH}")
+        except json.JSONDecodeError:
+            print("users.json enthält ungültiges JSON")
 
-    return render(request, "meine_app/suche.html",
-        {
-            "username": username,
-            "password": password,
-            "users": users,
-            "query": query,
-        }
-    )
+    return render(request, "meine_app/suche.html", {
+        'username': username,
+        'password': password,
+        'users':    users,
+        'query':    query,
+    })
 
-#def suche(request):
- #   username = request.GET.get("username")
-  #  password = request.GET.get("password")
-   # return render(request, "meine_app/suche.html", {"username": username, "password": password})
+@check_login
+def profilseite(request):
+    # Wer ruft auf und wer wird angezeigt?
+    current_user = request.GET.get("username", "")
+    password     = request.GET.get("password", "")
+    profile_user = request.GET.get("profil", current_user)
 
+    # Beiträge des Profil-Users laden
+    posts = Post.objects.filter(author=profile_user).order_by('-created_at')
+
+    # Profil-Daten aus users.json holen
+    try:
+        with open(USER_JSON_PATH, 'r', encoding='utf-8') as f:
+            all_users = json.load(f)
+        user_data = next((u for u in all_users if u.get('username') == profile_user), {})
+    except Exception:
+        user_data = {}
+
+    avatar_url = user_data.get('avatar_url', '')
+    bio        = user_data.get('bio', '')
+    location   = user_data.get('location', '')
+
+    return render(request, "meine_app/profilseite.html", {
+        'username':     current_user,
+        'password':     password,
+        'profile_user': profile_user,
+        'posts':        posts,
+        'avatar_url':   avatar_url,
+        'bio':          bio,
+        'location':     location,
+    })
+
+@check_login
+def edit_profile(request):
+    username = request.GET.get("username", "")
+    password = request.GET.get("password", "")
+
+    # JSON laden und aktuellen Nutzer finden
+    with open(USER_JSON_PATH, 'r', encoding='utf-8') as f:
+        all_users = json.load(f)
+    user_data = next((u for u in all_users if u.get('username') == username), None)
+    if user_data is None:
+        return redirect(f"{reverse('startseite')}?username={username}&password={password}")
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            avatar_file = form.cleaned_data['avatar']
+            if avatar_file:
+                fs = FileSystemStorage(
+                    location=os.path.join(settings.MEDIA_ROOT, 'profile_pics'),
+                    base_url=settings.MEDIA_URL + 'profile_pics/'
+                )
+                fname = f"{username}_{avatar_file.name}"
+                saved_name = fs.save(fname, avatar_file)
+                user_data['avatar_url'] = fs.url(saved_name)
+            user_data['bio']      = form.cleaned_data['bio']
+            user_data['location'] = form.cleaned_data['location']
+
+            with open(USER_JSON_PATH, 'w', encoding='utf-8') as f:
+                json.dump(all_users, f, indent=2, ensure_ascii=False)
+
+            return redirect(
+                f"{reverse('profilseite')}?username={username}"
+                f"&password={password}&profil={username}"
+            )
+    else:
+        form = ProfileForm(initial={
+            'bio':      user_data.get('bio', ''),
+            'location': user_data.get('location', '')
+        })
+
+    return render(request, "meine_app/edit_profile.html", {
+        'form':       form,
+        'avatar_url': user_data.get('avatar_url', ''),
+        'username':   username,
+        'password':   password,
+    })
+
+#   username = request.GET.get("us
 @check_login
 def einstellungen(request):
     username = request.GET.get("username")
