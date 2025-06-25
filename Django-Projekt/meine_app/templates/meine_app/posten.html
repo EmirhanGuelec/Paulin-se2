@@ -1,41 +1,95 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Beitrag erstellen - AVIE</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/handy.css' %}" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neuen Beitrag posten</title>
+  <!-- Dein allgemeines Stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- Spezifisches Posting-Layout -->
+  <link rel="stylesheet" href="{% static 'css/posten.css' %}">
   <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
+  <!-- Header wie auf allen Seiten -->
   <header class="site-header">
-    <a href="/startseite?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
-    <nav class="nav-icons">
-      <a href="/suche?username={{ username }}&password={{ password }}" class="icon-link" title="Suche"><i class="fa-solid fa-magnifying-glass"></i></a>
-      <a href="/chat?username={{ username }}&password={{ password }}" class="icon-link" title="Chats"><i class="fa-solid fa-comments"></i></a>
-      <a href="/profilseite?username={{ username }}&password={{ password }}" class="icon-link profil-icon" title="Profil"><i class="fa-solid fa-user"></i></a>
-    </nav>
+    <a href="{% url 'startseite' %}?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
+    <!-- hier deine Navigation… -->
   </header>
 
-  <div class="floating-footer">
-    <a href="/login" class="bottom-icon" title="Logout"><i class="fa-solid fa-right-to-bracket"></i></a>
-    <a href="/einstellungen?username={{ username }}&password={{ password }}" title="Einstellungen"><i class="fa-solid fa-gear"></i></a>
-    <a href="/impressum?username={{ username }}&password={{ password }}" title="Impressum"><i class="fa-solid fa-circle-info"></i></a>
-  </div>
+  <main class="posten-main">
+    <section class="posten-container">
+      <h1 class="posten-title">Erstelle einen neuen Beitrag</h1>
 
-  <main class="post-create-container">
-    <h2>Beitrag erstellen</h2>
-    <form method="post" enctype="multipart/form-data" action="{% url 'create_post' %}?username={{ username }}&password={{ password }}">
-      {% csrf_token %}
-      {{ post_form.as_p }}
-      <button type="submit">Beitrag veröffentlichen</button>
-    </form>
+      <form id="post-form"
+            class="posten-form"
+            action="{% url 'create_post' %}?username={{ username }}&password={{ password }}"
+            method="post"
+            enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {# Globale Fehler von clean() #}
+        {% if post_form.non_field_errors %}
+          <div class="alert error">
+            {{ post_form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <div class="form-group">
+          {{ post_form.content.label_tag }}
+          {{ post_form.content }}
+          {% if post_form.content.errors %}
+            <div class="field-error">{{ post_form.content.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ post_form.image.label_tag }}
+          {{ post_form.image }}
+          {% if post_form.image.errors %}
+            <div class="field-error">{{ post_form.image.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ post_form.video.label_tag }}
+          {{ post_form.video }}
+          {% if post_form.video.errors %}
+            <div class="field-error">{{ post_form.video.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn primary">
+          <i class="fa-solid fa-paper-plane"></i> Posten
+        </button>
+      </form>
+    </section>
   </main>
 
-</body>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('post-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const textarea  = form.querySelector('textarea[name="content"]');
+      const imageInp  = form.querySelector('input[name="image"]');
+      const videoInp  = form.querySelector('input[name="video"]');
 
+      function validate() {
+        const hasText  = textarea.value.trim().length > 0;
+        const hasImage = imageInp.files.length > 0;
+        const hasVideo = videoInp.files.length > 0;
+        submitBtn.disabled = !(hasText || hasImage || hasVideo);
+      }
+
+      textarea.addEventListener('input', validate);
+      imageInp.addEventListener('change', validate);
+      videoInp.addEventListener('change', validate);
+
+      // Initialer Check, damit der Button korrekt disabled ist
+      validate();
+    });
+  </script>
+</body>
 </html>
