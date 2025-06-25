@@ -61,9 +61,14 @@
           {% endif %}
         </div>
 
-        <button type="submit" id="submit-btn" class="btn primary">
-          <i class="fa-solid fa-paper-plane"></i> Posten
-        </button>
+        <div class="form-actions" style="display: flex; gap: 1em;">
+          <a href="{% url 'startseite' %}?username={{ username }}&password={{ password }}" class="btn secondary" style="display: flex; align-items: center;">
+            <i class="fa-solid fa-arrow-left" style="margin-right: 0.5em;"></i> Zurück
+          </a>
+          <button type="submit" id="submit-btn" class="btn primary">
+            <i class="fa-solid fa-paper-plane"></i> Posten
+          </button>
+        </div>
       </form>
     </section>
   </main>
