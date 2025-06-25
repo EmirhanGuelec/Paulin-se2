@@ -16,12 +16,6 @@ urlpatterns = [
     path("startseite/", app_views.startseite, name='startseite'),
     path("posten/", app_views.posten, name='posten'),
     path("upload/", app_views.saveUploadedFile),
-
-    # Beiträge
-    path("post/create/", app_views.create_post, name='create_post'),
-    path("post/<int:post_id>/comment/", app_views.add_comment, name='add_comment'),
-    path("post/<int:post_id>/like/", app_views.toggle_like, name='toggle_like'),
-
     # Seiten
     path("profilseite/", app_views.profilseite, name='profilseite'),
     path("chat/", app_views.chat, name='chat'),
