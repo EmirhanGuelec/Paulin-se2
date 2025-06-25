@@ -1,97 +1,95 @@
+<!-- meine_app/templates/meine_app/suche.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AVIE – Suche</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/suchen.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/handy.css' %}">
   <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+  <style> .footer-buttons {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      z-index: 1000;
+    }
+    .footer-buttons a {
+      background: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      color: #333;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .footer-buttons a:hover {
+      background: #f0f0f0;
+    }</style>
 </head>
-
 <body>
+  <!-- Header wie auf der Startseite -->
+  <header class="site-header">
+    <a href="{% url 'startseite' %}?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
+    <nav class="nav-icons">
+      <a href="{% url 'suche' %}?username={{ username }}&password={{ password }}" class="icon-link">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <a href="{% url 'chat' %}?username={{ username }}&password={{ password }}" class="icon-link">
+        <i class="fa-solid fa-comment"></i>
+      </a>
+      <a href="{% url 'profilseite' %}?username={{ username }}&password={{ password }}" class="icon-link profil-icon">
+        <i class="fa-solid fa-user"></i>
+      </a>
+    </nav>
+  </header>
 
-<header class="site-header">
-  <a href="/startseite?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
-  <a href="/suche?username={{ username }}&password={{ password }}" class="active"></a>
+  <main class="suche-container">
+    <h1>Nutzer suchen</h1>
 
-  <nav class="nav-icons">
-    <a href="/suche?username={{ username }}&password={{ password }}" class="icon-link active" title="Suche">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </a>
-    <a href="/chat?username={{ username }}&password={{ password }}" class="icon-link" title="Chats">
-      <i class="fa-solid fa-comments"></i>
-    </a>
-    <a href="/profilseite?username={{ username }}&password={{ password }}" class="icon-link profil-icon" title="Profil">
-      <i class="fa-solid fa-user"></i>
-    </a>
-  </nav>
-</header>
+    <form method="get" action="{% url 'suche' %}" class="suche-form">
+      <input type="hidden" name="username" value="{{ username }}">
+      <input type="hidden" name="password" value="{{ password }}">
+      <input type="search"
+             name="q"
+             placeholder="Benutzername eingeben..."
+             value="{{ query }}"
+             class="suche-input">
+      <button type="submit" class="suche-btn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </form>
 
-<div class="floating-footer">
-  <a href="/login" title="Logout">
-    <i class="fa-solid fa-right-to-bracket"></i>
-  </a>
-  <a href="/einstellungen?username={{ username }}&password={{ password }}" title="Einstellungen">
-    <i class="fa-solid fa-gear"></i>
-  </a>
-  <a href="/impressum?username={{ username }}&password={{ password }}" title="Impressum">
-    <i class="fa-solid fa-circle-info"></i>
-  </a>
-</div>
-
-<div class="floating-footer">
-  <a href="/posten?username={{ username }}&password={{ password }}" class="floating-footer-left" title="Beitrag erstellen">
-    <i class="fa-solid fa-plus"></i>
-  </a>
-</div>
-
-
-<h2>Benutzersuche</h2>
-<form class="suche-form" method="GET" action="">
-    <input type="text" name="q" placeholder="Benutzer suchen..." value="{{ query }}">
-    <button type="submit">Suchen</button>
-</form>
-
-{% if users %}
-    <ul>
-    {% for user in users %}
-        <li>
-            <a href="{% url 'profile' username=user.username %}">{{ user.username }}</a>
-        </li>
-    {% endfor %}
-    </ul>
-{% elif query %}
-    <p>Keine Benutzer gefunden.</p>
-{% endif %}
-
-
-
-
-
-  <main class="entdecken-container">
-    <h2>Entdecke neue Beiträge</h2>
-
-    <div class="beitrag-grid">
-      <div class="beitrag-card">
-        <img src="https://source.unsplash.com/random/300x200" alt="Beitrag">
-        <p>@user1 – Schönster Sonnenuntergang</p>
-      </div>
-
-      <div class="beitrag-card">
-        <img src="https://source.unsplash.com/random/301x200" alt="Beitrag">
-        <p>@user2 – Mein neues Haustier</p>
-      </div>
-
-      <div class="beitrag-card">
-        <img src="https://source.unsplash.com/random/302x200" alt="Beitrag">
-        <p>@user3 – Lieblingsplatz im Park</p>
-      </div>
-
-    </div>
+    {% if query %}
+      <h2>Ergebnisse für „{{ query }}“</h2>
+      <ul class="suche-results">
+        {% if users %}
+          {% for u in users %}
+            <li>
+              <a href="{% url 'profilseite' %}?username={{ username }}&password={{ password }}&profil={{ u.username }}">
+                {{ u.username }}
+              </a>
+            </li>
+          {% endfor %}
+        {% else %}
+          <li>Keine Nutzer gefunden.</li>
+        {% endif %}
+      </ul>
+    {% endif %}
   </main>
+
+ <div class="footer-buttons">
+  <a href="/login" title="Logout"><i class="fa-solid fa-right-to-bracket"></i></a>
+  <a href="/einstellungen?username={{ username }}&password={{ password }}" title="Einstellungen"><i class="fa-solid fa-gear"></i></a>
+  <a href="/impressum?username={{ username }}&password={{ password }}" title="Impressum"><i class="fa-solid fa-circle-info"></i></a>
+</div>
+  </a>
 </body>
 </html>
