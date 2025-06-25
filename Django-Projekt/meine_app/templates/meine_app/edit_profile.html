@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil bearbeiten</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
+  <style> 
+  .footer-buttons {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      z-index: 1000;
+    }
+    .footer-buttons a {
+      background: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      color: #333;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .footer-buttons a:hover {
+      background: #f0f0f0;
+    }
+    </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="{% url 'startseite' %}?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
+    <nav class="nav-icons">
+      <a href="{% url 'suche' %}?username={{ username }}&password={{ password }}" class="icon-link">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <a href="{% url 'chat' %}?username={{ username }}&password={{ password }}" class="icon-link">
+        <i class="fa-solid fa-comment"></i>
+      </a>
+      <a href="{% url 'profilseite' %}?username={{ username }}&password={{ password }}&profil={{ username }}" class="icon-link profil-icon">
+        <i class="fa-solid fa-user"></i>
+      </a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="posten-main">
+    <section class="posten-container">
+      <h1 class="posten-title">Profil bearbeiten</h1>
+
+      <form action="{% url 'edit_profile' %}?username={{ username }}&password={{ password }}"
+            method="post"
+            enctype="multipart/form-data"
+            class="posten-form">
+
+        {% csrf_token %}
+
+        {% if avatar_url %}
+          <div class="form-group">
+            <label>Aktuelles Profilbild</label><br>
+            <img src="{{ avatar_url }}" alt="Profilbild" class="post-image">
+          </div>
+        {% endif %}
+
+        <div class="form-group">
+          {{ form.avatar.label_tag }}
+          {{ form.avatar }}
+          {% for err in form.avatar.errors %}
+            <div class="field-error">{{ err }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.bio.label_tag }}
+          {{ form.bio }}
+          {% for err in form.bio.errors %}
+            <div class="field-error">{{ err }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.location.label_tag }}
+          {{ form.location }}
+          {% for err in form.location.errors %}
+            <div class="field-error">{{ err }}</div>
+          {% endfor %}
+        </div>
+
+        <button type="submit" class="btn primary">
+          <i class="fa-solid fa-floppy-disk"></i> Speichern
+        </button>
+      </form>
+    </section>
+  </main>
+
+ <div class="footer-buttons">
+  <a href="/login" title="Logout"><i class="fa-solid fa-right-to-bracket"></i></a>
+  <a href="/einstellungen?username={{ username }}&password={{ password }}" title="Einstellungen"><i class="fa-solid fa-gear"></i></a>
+  <a href="/impressum?username={{ username }}&password={{ password }}" title="Impressum"><i class="fa-solid fa-circle-info"></i></a>
+</div>
+
+</body>
+</html>
