@@ -1,75 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Profil von {{ profile_user }}</title>
+  <title>AVIE - Profil von {{ profile_user }}</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/handy.css' %}">
+  <link rel="stylesheet" href="{% static 'css/profilseite.css' %}">
   <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
-  <style>
-
-    
-  .post {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  }
-
-  .post-image,
-  .post-video {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    display: block;
-    margin: 0.5rem 0;
-  }
-
-  .post-video {
-    max-height: 400px;
-  }
-
-  .post-text {
-    font-size: 1rem;
-    color: #333;
-    line-height: 1.5;
-  }
-
-
-
-    .footer-buttons {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-      z-index: 1000;
-    }
-    .footer-buttons a {
-      background: #fff;
-      width: 48px;
-      height: 48px;
-      border-radius: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      color: #333;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-    .footer-buttons a:hover {
-      background: #f0f0f0;
-    }
-  </style>
 </head>
-<body>
 
-  <!-- HEADER wie auf der Startseite -->
+<body>
+  
   <header class="site-header">
     <a href="{% url 'startseite' %}?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
     <nav class="nav-icons">
@@ -87,58 +31,28 @@
 
   <main class="feed-container">
     <!-- Profil-Kopf -->
-    <section class="profile-header" style="text-align:center; margin:2rem 0;">
+    <section class="profile-header">
       {% if avatar_url %}
         <img
           src="{{ avatar_url }}"
           alt="Avatar von {{ profile_user }}"
-          style="
-            width:120px;
-            height:120px;
-            object-fit:cover;
-            border-radius:50%;
-            border:3px solid #1995AD;
-            display:block;
-            margin:0 auto 0.75rem;
-          "
+          class="profilbild"
         >
       {% endif %}
 
-      <h1
-        class="profile-title"
-        style="margin:0.5rem 0 0.25rem; font-size:1.75rem; color:#333;"
-      >
+      <h1 class="profile-title">
         @{{ profile_user }}
       </h1>
 
       {% if bio %}
-        <p
-          class="profile-bio"
-          style="
-            font-size:1rem;
-            color:#555;
-            line-height:1.4;
-            margin:0.5rem auto;
-            max-width:500px;
-          "
-        >
+        <p class="profile-bio">
           {{ bio }}
         </p>
       {% endif %}
 
       {% if location %}
-        <p
-          class="profile-location"
-          style="
-            display:inline-flex;
-            align-items:center;
-            gap:0.25rem;
-            font-size:0.9rem;
-            color:#777;
-            margin-bottom:1rem;
-          "
-        >
-          <i class="fa-solid fa-location-dot" style="color:#e63946;"></i>
+        <p class="profile-location">
+          <i class="fa-solid fa-location-dot" style="color:#ff4d4d;"></i>
           {{ location }}
         </p>
       {% endif %}
@@ -146,13 +60,7 @@
       {% if profile_user == username %}
         <a
           href="{% url 'edit_profile' %}?username={{ username }}&password={{ password }}"
-          class="btn primary"
-          style="
-            display:inline-flex;
-            align-items:center;
-            gap:0.5rem;
-            margin-top:0.75rem;
-          "
+          class="btn-primary"
         >
           <i class="fa-solid fa-pen-to-square"></i> Profil bearbeiten
         </a>

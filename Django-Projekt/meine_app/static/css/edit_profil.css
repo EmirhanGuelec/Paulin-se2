@@ -1,0 +1,8 @@
+.post-image {
+    max-width: 640px;
+    max-width: 480px;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 8px;
+  }

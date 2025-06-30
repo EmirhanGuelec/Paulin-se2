@@ -1,21 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Neuen Beitrag posten</title>
-  <!-- Dein allgemeines Stylesheet -->
+  <title>AVIE - Neuer Post</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <!-- Spezifisches Posting-Layout -->
   <link rel="stylesheet" href="{% static 'css/posten.css' %}">
+  <link rel="stylesheet" href="{% static 'css/handy.css' %}">
   <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-  <!-- Header wie auf allen Seiten -->
+ 
   <header class="site-header">
     <a href="{% url 'startseite' %}?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
-    <!-- hier deine Navigation… -->
+  
   </header>
 
   <main class="posten-main">

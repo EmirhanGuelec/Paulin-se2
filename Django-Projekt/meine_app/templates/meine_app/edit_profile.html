@@ -1,55 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Profil bearbeiten</title>
+  <title>AVIE - Profil bearbeiten</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/handy.css' %}">
+  <link rel="stylesheet" href="{% static 'css/edit_profil.css' %}">
   <script src="https://kit.fontawesome.com/a7fef2ebcc.js" crossorigin="anonymous"></script>
-  <style> 
-
-  .post-image {
-  
-    max-width: 640px;
-    max-width: 480px;
-    height: auto;
-    border-radius: 8px;
-    display: block;
-    margin: 8px;
-  }
-
-
-  .footer-buttons {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-      z-index: 1000;
-    }
-    .footer-buttons a {
-      background: #fff;
-      width: 48px;
-      height: 48px;
-      border-radius: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      color: #333;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-    .footer-buttons a:hover {
-      background: #f0f0f0;
-    }
-    </style>
 </head>
+
 <body>
 
-  <!-- HEADER -->
   <header class="site-header">
     <a href="{% url 'startseite' %}?username={{ username }}&password={{ password }}" class="logo">AVIE</a>
     <nav class="nav-icons">
@@ -65,7 +29,6 @@
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main class="posten-main">
     <section class="posten-container">
       <h1 class="posten-title">Profil bearbeiten</h1>
